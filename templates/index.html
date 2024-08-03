@@ -1,0 +1,42 @@
+<!-- templates/index.html -->
+{% extends "layout.html" %}
+
+{% block title %}Home - QR Code Generator{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock %}
+
+{% block content %}
+<h1>QR Code Generator</h1>
+<form id="qr-form" enctype="multipart/form-data">
+    <label for="data_type">Select QR Code Type:</label>
+    <select id="data_type" name="data_type" onchange="loadForm()">
+        {% for option in options %}
+            <option value="{{ option }}">{{ option }}</option>
+        {% endfor %}
+    </select>
+    
+    <div id="form-content">
+        <!-- Dynamic form content will be loaded here -->
+        <label for="data">Enter Data:</label>
+        <input type="text" id="data" name="data" required>
+    </div>
+    
+    <label for="with_logo">Include Logo:</label>
+    <input type="checkbox" id="with_logo" name="with_logo" onchange="toggleLogoUpload()">
+    
+    <div id="logo-upload" style="display: none;">
+        <label for="logo">Upload Logo:</label>
+        <input type="file" id="logo" name="logo" accept="image/*">
+    </div>
+    
+    <button type="submit">Generate QR Code</button>
+</form>
+
+<div id="qr-code"></div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/index.js') }}"></script>
+{% endblock %}

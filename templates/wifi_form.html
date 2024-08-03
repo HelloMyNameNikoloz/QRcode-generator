@@ -1,0 +1,21 @@
+<!-- templates/wifi_form.html -->
+<div id="wifi-form">
+    <label for="ssid">Network Name (SSID):</label>
+    <input type="text" id="ssid" name="ssid" placeholder="SSID" required>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" placeholder="Password">
+
+    <label for="encryption">Encryption:</label>
+    <div>
+        <input type="radio" id="encryption_none" name="encryption" value="nopass">
+        <label for="encryption_none">None</label>
+        <input type="radio" id="encryption_wpa" name="encryption" value="WPA" checked>
+        <label for="encryption_wpa">WPA/WPA2</label>
+        <input type="radio" id="encryption_wep" name="encryption" value="WEP">
+        <label for="encryption_wep">WEP</label>
+    </div>
+
+    <label for="hidden">Hidden:</label>
+    <input type="checkbox" id="hidden" name="hidden">
+</div>
