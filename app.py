@@ -1,9 +1,7 @@
-# app.py
 from flask import Flask, render_template, request, send_file
 from utils.qr_code_generator import generate_qr_code
 import os
 from werkzeug.utils import secure_filename
-import base64
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
@@ -16,6 +14,20 @@ def index():
         "Wi-Fi", "Calendar Event", "Location"
     ]
     return render_template('index.html', options=qr_code_options)
+
+@app.route('/link_form')
+def link_form():
+    return """
+        <label for="data">Enter Link:</label>
+        <input type="url" id="data" name="data" required>
+    """
+
+@app.route('/text_form')
+def text_form():
+    return """
+        <label for="data">Enter Text:</label>
+        <textarea id="data" name="data" required></textarea>
+    """
 
 @app.route('/vcard_form')
 def vcard_form():

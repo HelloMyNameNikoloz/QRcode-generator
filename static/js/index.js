@@ -1,4 +1,5 @@
 // static/js/index.js
+
 document.getElementById('qr-form').addEventListener('submit', function(e) {
     e.preventDefault();
 
@@ -29,70 +30,36 @@ function toggleLogoUpload() {
     }
 }
 
-function loadForm() {
-    const dataType = document.getElementById('data_type').value;
+function loadForm(option) {
     const formContent = document.getElementById('form-content');
+    const optionFormatted = option.toLowerCase().replace(' ', '_');
 
-    if (dataType === "vCard") {
-        fetch('/vcard_form')
-            .then(response => response.text())
-            .then(html => {
-                formContent.innerHTML = html;
-            })
-            .catch(error => console.error('Error:', error));
-    } else if (dataType === "Email") {
-        fetch('/email_form')
-            .then(response => response.text())
-            .then(html => {
-                formContent.innerHTML = html;
-            })
-            .catch(error => console.error('Error:', error));
-    } else if (dataType === "SMS") {
-        fetch('/sms_form')
-            .then(response => response.text())
-            .then(html => {
-                formContent.innerHTML = html;
-            })
-            .catch(error => console.error('Error:', error));
-    } else if (dataType === "Phone Number") {
-        fetch('/phone_number_form')
-            .then(response => response.text())
-            .then(html => {
-                formContent.innerHTML = html;
-            })
-            .catch(error => console.error('Error:', error));
-    } else if (dataType === "Wi-Fi") {
-        fetch('/wifi_form')
-            .then(response => response.text())
-            .then(html => {
-                formContent.innerHTML = html;
-            })
-            .catch(error => console.error('Error:', error));
-    } else if (dataType === "Bitcoin Address") {
-        fetch('/bitcoin_form')
-            .then(response => response.text())
-            .then(html => {
-                formContent.innerHTML = html;
-            })
-            .catch(error => console.error('Error:', error));
-    } else if (dataType === "Calendar Event") {
-        fetch('/calendar_event_form')
-            .then(response => response.text())
-            .then(html => {
-                formContent.innerHTML = html;
-            })
-            .catch(error => console.error('Error:', error));
-    } else if (dataType === "Location") {
-        fetch('/location_form')
-            .then(response => response.text())
-            .then(html => {
-                formContent.innerHTML = html;
-            })
-            .catch(error => console.error('Error:', error));
-    } else {
-        formContent.innerHTML = `
-            <label for="data">Enter Data:</label>
-            <input type="text" id="data" name="data" required>
-        `;
-    }
+    fetch(`/${optionFormatted}_form`)
+        .then(response => response.text())
+        .then(html => {
+            formContent.innerHTML = html;
+            // Add hidden input to store the data type
+            const hiddenInput = document.createElement('input');
+            hiddenInput.type = 'hidden';
+            hiddenInput.name = 'data_type';
+            hiddenInput.value = option;
+            formContent.appendChild(hiddenInput);
+        })
+        .catch(error => console.error('Error loading form:', error));
 }
+
+function selectOption(option) {
+    const circles = document.querySelectorAll('.option-circle');
+    circles.forEach(circle => {
+        if (circle.textContent === option) {
+            circle.classList.add('selected');
+        } else {
+            circle.classList.remove('selected');
+        }
+    });
+    loadForm(option);
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    selectOption('Link'); // Load default form on page load
+});
