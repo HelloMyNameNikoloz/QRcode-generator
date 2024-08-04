@@ -8,31 +8,33 @@
 {% endblock %}
 
 {% block content %}
-<h1>QR Code Generator</h1>
-<div class="options-container">
-    {% for option in options %}
-        <div class="option-circle" onclick="selectOption('{{ option }}')">{{ option }}</div>
-    {% endfor %}
-</div>
-<div class="generator-container">
-    <form id="qr-form" enctype="multipart/form-data">
-        <div id="form-content">
-            <!-- Dynamic form content will be loaded here -->
-        </div>
-        
-        <label for="with_logo">Include Logo:</label>
-        <label class="switch">
-            <input type="checkbox" id="with_logo" name="with_logo" onchange="toggleLogoUpload()">
-            <span class="slider"></span>
-        </label>
-        
-        <div id="logo-upload" style="display: none;">
-            <label for="logo">Upload Logo:</label>
-            <input type="file" id="logo" name="logo" accept="image/*">
-        </div>
-        
-        <button type="submit">Generate QR Code</button>
-    </form>
+<div class="container">
+    <div class="options-container">
+        <h1>QR Code Generator</h1>
+        {% for option in options %}
+            <div class="option-circle" onclick="selectOption('{{ option }}')">{{ option }}</div>
+        {% endfor %}
+    </div>
+    <div class="generator-container">
+        <form id="qr-form" enctype="multipart/form-data">
+            <div id="form-content">
+                <!-- Dynamic form content will be loaded here -->
+            </div>
+            
+            <label for="with_logo">Include Logo:</label>
+            <label class="switch">
+                <input type="checkbox" id="with_logo" name="with_logo" onchange="toggleLogoUpload()">
+                <span class="slider"></span>
+            </label>
+            
+            <div id="logo-upload" style="display: none;">
+                <label for="logo">Upload Logo:</label>
+                <input type="file" id="logo" name="logo" accept="image/*">
+            </div>
+            
+            <button type="submit">Generate QR Code</button>
+        </form>
+    </div>
     <div id="qr-code"></div>
 </div>
 {% endblock %}

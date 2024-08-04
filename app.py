@@ -11,7 +11,7 @@ os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 def index():
     qr_code_options = [
         "Link", "vCard", "Email", "SMS", "Phone Number", "Text", 
-        "Wi-Fi", "Calendar Event", "Location"
+        "Wi-Fi", "Calendar Event", "Location", "Bitcoin Address"
     ]
     return render_template('index.html', options=qr_code_options)
 
@@ -45,13 +45,13 @@ def sms_form():
 def phone_number_form():
     return render_template('phone_number_form.html')
 
-@app.route('/wifi_form')
+@app.route('/wi-fi_form')
 def wifi_form():
-    return render_template('wifi_form.html')
+    return render_template('wi-fi_form.html')
 
-@app.route('/bitcoin_form')
-def bitcoin_form():
-    return render_template('bitcoin_form.html')
+@app.route('/bitcoin_address_form')
+def bitcoin_address_form():
+    return render_template('bitcoin_adress_form.html')
 
 @app.route('/calendar_event_form')
 def calendar_event_form():

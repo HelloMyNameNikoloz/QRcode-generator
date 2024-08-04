@@ -4,7 +4,7 @@ document.getElementById('qr-form').addEventListener('submit', function(e) {
     e.preventDefault();
 
     const formData = new FormData(this);
-    
+
     fetch('/generate', {
         method: 'POST',
         body: formData
@@ -32,7 +32,7 @@ function toggleLogoUpload() {
 
 function loadForm(option) {
     const formContent = document.getElementById('form-content');
-    const optionFormatted = option.toLowerCase().replace(' ', '_');
+    const optionFormatted = option.toLowerCase().replace(/ /g, '_');
 
     fetch(`/${optionFormatted}_form`)
         .then(response => response.text())
@@ -51,7 +51,7 @@ function loadForm(option) {
 function selectOption(option) {
     const circles = document.querySelectorAll('.option-circle');
     circles.forEach(circle => {
-        if (circle.textContent === option) {
+        if (circle.textContent.trim() === option) {
             circle.classList.add('selected');
         } else {
             circle.classList.remove('selected');
@@ -61,5 +61,11 @@ function selectOption(option) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
+    const options = document.querySelectorAll('.option-circle');
+    options.forEach(option => {
+        option.addEventListener('click', () => {
+            selectOption(option.textContent.trim());
+        });
+    });
     selectOption('Link'); // Load default form on page load
 });
